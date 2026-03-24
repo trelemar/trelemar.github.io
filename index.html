@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Low Simmer Games</title>
   <style>
     body {
@@ -8,22 +9,24 @@
       background: #111;
       color: #eee;
       font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       text-align: center;
     }
 
     .container {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
+      padding: 40px 20px;
       gap: 20px;
+      box-sizing: border-box;
     }
 
     img {
+      width: 60%;
       max-width: 240px;
+      height: auto;
     }
 
     p {
@@ -34,7 +37,9 @@
 
     .links {
       display: flex;
-      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
       margin-top: 10px;
       font-size: 14px;
       opacity: 0.6;
@@ -53,12 +58,10 @@
 <body>
   <div class="container">
     <img src="lowsimmer_logo.png" alt="Low Simmer Games Logo">
-    <p>Let it simmer. More soon.</p>
+    <p>Coming soon.</p>
 
     <div class="links">
-      <a href="https://twitter.com/yourhandle">Twitter</a>
-      <a href="https://instagram.com/yourhandle">Instagram</a>
-      <a href="https://your-substack-url">Newsletter</a>
+      <a href="https://bsky.app/profile/lowsimmer.bsky.social">BlueSky</a>
     </div>
   </div>
 </body>
