@@ -1,4 +1,4 @@
 <p align="center">
-  <img src="logo.png" width="200">
+  <img src="lowsimmer_logo.png" width="200">
 </p>
 # Low Simmer Games
