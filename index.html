@@ -10,71 +10,64 @@
       background: #111;
       color: #eee;
       font-family: sans-serif;
-      text-align: center;
     }
 
+    /* Top Bar */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #222;
+    }
+
+    .topbar img {
+      height: 40px;
+      width: auto;
+    }
+
+    .topbar .links {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+
+    .topbar a {
+      color: #ccc;
+      text-decoration: none;
+    }
+
+    .topbar a:hover {
+      opacity: 1;
+    }
+
+    /* Main Content */
     .container {
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
       align-items: center;
       padding: 60px 20px;
       gap: 20px;
-      box-sizing: border-box;
+      text-align: center;
     }
 
-    .logo {
-      width: 60%;
-      max-width: 240px;
-      height: auto;
-    }
-
-    p {
+    .tagline {
       font-size: 16px;
       opacity: 0.7;
       margin: 0;
     }
 
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 10px;
-      font-size: 14px;
-      opacity: 0.6;
-    }
-
-    .links a {
-      color: #ccc;
-      text-decoration: none;
-    }
-
-    .links a:hover {
-      opacity: 1;
-    }
-
-    .divider {
-      width: 60%;
-      max-width: 300px;
-      height: 1px;
-      background: #333;
-      margin: 40px 0 10px 0;
-      opacity: 0.5;
-    }
-
     .section {
-      max-width: 700px;
+      max-width: 1000px;
       margin-top: 40px;
-      text-align: center;
     }
 
     .narrowing-logo {
       width: 80%;
       max-width: 320px;
       height: auto;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       opacity: 0.95;
     }
 
@@ -82,76 +75,58 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 24px;
+      gap: 40px;
       flex-wrap: wrap;
     }
 
     .card-image {
-      width: 320px;
+      width: 300px;
       max-width: 100%;
       border-radius: 8px;
-      opacity: 0.95;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
 
     .description {
-      max-width: 320px;
-      font-size: 15px;
+      max-width: 400px;
+      font-size: 16px;
       line-height: 1.6;
       opacity: 0.9;
       text-align: left;
     }
 
-    /* Desktop improvements */
+    /* Desktop scaling */
     @media (min-width: 768px) {
-      .section {
-        max-width: 1000px;
-      }
-
-      .narrowing-content {
-        gap: 40px;
-      }
-
       .card-image {
         width: 420px;
-      }
-
-      .description {
-        max-width: 400px;
-        font-size: 16px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
 
-    <!-- Low Simmer Logo -->
-    <img class="logo" src="lowsimmer_logo_v7.png" alt="Low Simmer Games Logo">
+  <!-- Top Bar -->
+  <div class="topbar">
+    <img src="lowsimmer_logo_v7.png" alt="Low Simmer Games Logo">
 
-    <!-- Tagline -->
-    <p>Cooking stuff up.<br>More soon.</p>
-
-    <!-- Links -->
     <div class="links">
       <a href="https://bsky.app/profile/lowsimmer.games">BlueSky</a>
     </div>
+  </div>
 
-    <div class="divider"></div>
+  <!-- Main Content -->
+  <div class="container">
 
-    <!-- The Narrowing Section -->
+    <p class="tagline">Cooking something worth playing.</p>
+
     <div class="section">
 
-      <!-- Narrowing Logo -->
       <img class="narrowing-logo" src="narrowing_logo.png" alt="The Narrowing">
 
-      <!-- Content Row -->
       <div class="narrowing-content">
 
-        <!-- Card Image -->
         <img class="card-image" src="narrowing_cards_1.png" alt="The Narrowing cards preview">
 
-        <!-- Description -->
         <p class="description">
           The Narrowing is a head-to-head card game about hidden information and tracking. Led by your compass, players plot raids on their opponent’s hidden Paths, attempting to locate and capture their Captains. Creatures help you gather Secrets to fuel your raids, but committing too much can leave you exposed. Each raid narrows the possibilities, tightening where your opponent can hide. Find their Captains before the Paths close in on you.
         </p>
@@ -160,5 +135,6 @@
     </div>
 
   </div>
+
 </body>
 </html>
