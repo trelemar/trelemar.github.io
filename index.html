@@ -17,19 +17,14 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 20px;
+      padding: 20px 24px;
       border-bottom: 1px solid #222;
     }
 
     .topbar img {
-      height: 56px;
+      height: 48px;
       width: auto;
     }
-
-    @media (min-width: 768px) {
-      .topbar img {
-        height: 64px;
-      }
 
     .topbar .links {
       display: flex;
@@ -101,6 +96,10 @@
 
     /* Desktop scaling */
     @media (min-width: 768px) {
+      .topbar img {
+        height: 64px;
+      }
+
       .card-image {
         width: 420px;
       }
@@ -122,16 +121,20 @@
   <!-- Main Content -->
   <div class="container">
 
-    <p class="tagline">Cooking something worth playing.</p>
+    <p class="tagline">Tagline.</p>
 
     <div class="section">
 
+      <!-- Narrowing Logo -->
       <img class="narrowing-logo" src="narrowing_logo.png" alt="The Narrowing">
 
+      <!-- Content Row -->
       <div class="narrowing-content">
 
+        <!-- Card Image -->
         <img class="card-image" src="narrowing_cards_1.png" alt="The Narrowing cards preview">
 
+        <!-- Description -->
         <p class="description">
           The Narrowing is a head-to-head card game about hidden information and tracking. Led by your compass, players plot raids on their opponent’s hidden Paths, attempting to locate and capture their Captains. Creatures help you gather Secrets to fuel your raids, but committing too much can leave you exposed. Each raid narrows the possibilities, tightening where your opponent can hide. Find their Captains before the Paths close in on you.
         </p>
