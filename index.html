@@ -3,6 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Low Simmer Games</title>
+
   <style>
     body {
       margin: 0;
@@ -16,14 +17,14 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
       gap: 20px;
       box-sizing: border-box;
     }
 
-    img {
+    img.logo {
       width: 60%;
       max-width: 240px;
       height: auto;
@@ -31,7 +32,7 @@
 
     p {
       font-size: 16px;
-      opacity: 0.8;
+      opacity: 0.7;
       margin: 0;
     }
 
@@ -53,16 +54,72 @@
     .links a:hover {
       opacity: 1;
     }
+
+    .section {
+      max-width: 600px;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .section h2 {
+      margin-bottom: 12px;
+      font-weight: normal;
+    }
+
+    .description {
+      font-size: 15px;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .card-image {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 8px;
+      opacity: 0.95;
+    }
+
+    .divider {
+      width: 60%;
+      max-width: 300px;
+      height: 1px;
+      background: #333;
+      margin: 40px 0 10px 0;
+      opacity: 0.5;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <img src="lowsimmer_logo_v7.png" alt="Low Simmer Games Logo">
+    
+    <!-- Logo -->
+    <img class="logo" src="lowsimmer_logo_v7.png" alt="Low Simmer Games Logo">
+
+    <!-- Tagline -->
     <p>Cooking stuff up.<br>More soon.</p>
 
+    <!-- Links -->
     <div class="links">
       <a href="https://bsky.app/profile/lowsimmer.games">BlueSky</a>
     </div>
+
+    <div class="divider"></div>
+
+    <!-- The Narrowing Section -->
+    <div class="section">
+      <h2>The Narrowing</h2>
+
+      <p class="description">
+        The Narrowing is a head-to-head card game about hidden information and tracking. Led by your compass, players plot raids on their opponent’s hidden Paths, attempting to locate and capture their Captains. Creatures help you gather Secrets to fuel your raids, but committing too much can leave you exposed. Each raid narrows the possibilities, tightening where your opponent can hide. Find their Captains before the Paths close in on you.
+      </p>
+
+      <!-- Card Image (replace with your file) -->
+      <img class="card-image" src="narrowing_cards_1.png" alt="The Narrowing cards preview">
+
+    </div>
+
   </div>
 </body>
 </html>
