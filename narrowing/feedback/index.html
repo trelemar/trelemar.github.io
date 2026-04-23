@@ -1,10 +1,155 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="refresh" content="0; url=https://forms.gle/KAoMQJv5a7F1zC2BA" />
-    <title>Playtest Feedback – The Narrowing</title>
-  </head>
-  <body>
-    <p>Redirecting to playtest feedback form...</p>
-  </body>
+<head>
+  <link rel="icon" type="image/png" href="../../favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Low Simmer Games</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #111;
+      color: #eee;
+      font-family: sans-serif;
+
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top Bar */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 48px;
+      background: #7f5638;
+      border-bottom: 1px solid #3a2818;
+    }
+
+    .topbar img {
+      height: 68px;
+      width: auto;
+    }
+
+    .topbar .links {
+      display: flex;
+      gap: 16px;
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    .topbar a {
+      color: #eee;
+      text-decoration: none;
+    }
+
+    .topbar a:hover {
+      opacity: 1;
+    }
+
+    /* Main Content */
+    .container {
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 20px;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .section {
+      max-width: 1000px;
+      margin-top: 40px;
+      padding: 40px 20px;
+
+      background-image: url("bg.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      border-radius: 12px;
+    }
+
+    .narrowing-logo {
+      width: 80%;
+      max-width: 320px;
+      height: auto;
+      margin-bottom: 20px;
+      opacity: 0.95;
+    }
+
+    .narrowing-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .card-image {
+      width: 375px;
+      max-width: 100%;
+      border-radius: 8px;
+    }
+
+    .description {
+      max-width: 400px;
+      font-size: 16px;
+      line-height: 1.6;
+      opacity: 0.9;
+      text-align: left;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 24px 28px;
+      background: #7f5638;
+      border-top: 1px solid #3a2818;
+      font-size: 14px;
+      opacity: 1.0;
+      text-align: right;
+    }
+
+    /* Desktop scaling */
+    @media (min-width: 768px) {
+      .topbar img {
+        height: 100px;
+      }
+
+      .card-image {
+        width: 520px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top Bar -->
+  <div class="topbar">
+    <a href="/">
+      <img src="../../web_logo.png" alt="Low Simmer Games Logo">
+    </a>
+
+    <div class="links">
+      <a href="https://bsky.app/profile/lowsimmer.games">BlueSky</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="section">
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScvo0c6h6sEHU6rYJ9ucNBmlVhYNJS__NjLRSheg9HspmpMXA/viewform?embedded=true" width="800" height="2476" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 Low Simmer</p>
+  </footer>
+
+</body>
 </html>
