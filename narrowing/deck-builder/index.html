@@ -493,7 +493,6 @@
 
         <button onclick="copyShareURL()">Copy Share URL</button>
         <button onclick="downloadDeckTXT()">Download TXT</button>
-        <button onclick="downloadDeckCSV()">Download CSV</button>
         <button onclick="clearDeck()">Clear Deck</button>
       </div>
 
@@ -1303,10 +1302,15 @@
       };
     }
 
-    function copyShareURL() {
+    function getShareURL() {
       const deckState = getDeckState();
       const encodedDeck = base64UrlEncode(JSON.stringify(deckState));
-      const url = `${window.location.origin}${window.location.pathname}?deck=${encodedDeck}`;
+
+      return `${window.location.origin}${window.location.pathname}?deck=${encodedDeck}`;
+    }
+
+    function copyShareURL() {
+      const url = getShareURL();
 
       window.history.replaceState(null, "", url);
 
@@ -1449,10 +1453,12 @@
     function downloadDeckTXT() {
       const title = getDeckTitleForExport();
       const groupedDeck = getGroupedDeckForExport();
+      const shareURL = getShareURL();
 
       let text = `${title}\n`;
       text += `The Narrowing Deck List\n`;
-      text += `Total Cards: ${deck.length}\n\n`;
+      text += `Total Cards: ${deck.length}\n`;
+      text += `Share URL: ${shareURL}\n\n`;
 
       groupedDeck.forEach(section => {
         text += `${section.faction}\n`;
@@ -1472,54 +1478,6 @@
       });
 
       downloadFile(`${getSafeFilename(title)}.txt`, text, "text/plain");
-    }
-
-    function downloadDeckCSV() {
-      const title = getDeckTitleForExport();
-
-      const rows = [
-        ["Deck Title", "Faction", "Quantity", "Card Title", "Card Type", "Directions"]
-      ];
-
-      getGroupedDeckForExport().forEach(section => {
-        if (section.captain) {
-          rows.push([
-            title,
-            section.faction,
-            "1",
-            section.captain.name,
-            "Captain",
-            "Captain"
-          ]);
-        }
-
-        section.cards.forEach(group => {
-          rows.push([
-            title,
-            section.faction,
-            String(group.directions.length),
-            group.card.name,
-            group.card.type,
-            group.directions.join(", ")
-          ]);
-        });
-      });
-
-      const csv = rows
-        .map(row => row.map(escapeCSVCell).join(","))
-        .join("\n");
-
-      downloadFile(`${getSafeFilename(title)}.csv`, csv, "text/csv");
-    }
-
-    function escapeCSVCell(value) {
-      const text = String(value ?? "");
-
-      if (text.includes(",") || text.includes('"') || text.includes("\n")) {
-        return `"${text.replaceAll('"', '""')}"`;
-      }
-
-      return text;
     }
 
     function downloadFile(filename, content, mimeType) {
