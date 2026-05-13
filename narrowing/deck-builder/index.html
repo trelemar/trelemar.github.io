@@ -349,7 +349,7 @@
       display: none;
     }
 
-    .card-tooltip img {
+    .card-tooltip .tooltip-card-image {
       width: 100%;
       aspect-ratio: 2.5 / 3.5;
       object-fit: contain;
@@ -364,6 +364,14 @@
     .card-tooltip p {
       margin: 0.35rem 0;
       font-size: 0.9rem;
+    }
+
+    .inline-icon {
+      height: 1em;
+      width: 1em;
+      vertical-align: -0.12em;
+      display: inline-block;
+      margin: 0 0.08em;
     }
 
     .muted {
@@ -1374,11 +1382,11 @@
       const tooltip = document.getElementById("cardTooltip");
 
       tooltip.innerHTML = `
-        <img src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}">
+        <img class="tooltip-card-image" src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}">
         <h3>${escapeHTML(card.name)}</h3>
         <p><strong>${escapeHTML(card.faction)}</strong> — ${escapeHTML(card.type)}</p>
         <p><strong>Threat:</strong> ${escapeHTML(card.threat || "—")}</p>
-        <p>${escapeHTML(card.text)}</p>
+        <p>${formatCardText(card.text)}</p>
       `;
 
       tooltip.style.display = "block";
@@ -1425,6 +1433,22 @@
       }
 
       return `images/${image}`;
+    }
+
+    function formatCardText(value) {
+      let text = escapeHTML(value || "");
+
+      text = text.replace(
+        /\{b:\s*([^{}]*?):\}/g,
+        "<strong>$1:</strong>"
+      );
+
+      text = text.replace(
+        /\s*\$secret\s*/g,
+        ` <img class="inline-icon" src="images/secret.png" alt="Secret"> `
+      );
+
+      return text;
     }
 
     function escapeHTML(value) {
