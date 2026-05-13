@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Narrowing Deck Builder</title>
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      background: #1f1a16;
+      color: #f3eadf;
+    }
+
+    header {
+      padding: 1rem;
+      background: #644328;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1.55fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    h1, h2, h3, h4 {
+      margin-top: 0;
+    }
+
+    .panel,
+    .validator,
+    .deck-card,
+    .faction-column {
+      background: #2b241f;
+      border: 1px solid #5a4638;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+
+    .controls,
+    .deck-tools {
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    select,
+    input {
+      padding: 0.4rem;
+      background: #3a2f28;
+      color: #f3eadf;
+      border: 1px solid #8a6a52;
+      border-radius: 6px;
+    }
+
+    .deck-tools input {
+      min-width: 220px;
+    }
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+      background: #2b241f;
+      border: 1px solid #5a4638;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th, td {
+      height: 44px;
+      max-height: 44px;
+      padding: 0 0.5rem;
+      border-bottom: 1px solid #5a4638;
+      text-align: left;
+      font-size: 0.9rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    th {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    th:hover,
+    tr:hover,
+    .deck-card:hover {
+      background: #3a2f28;
+    }
+
+    .col-name {
+      width: 29%;
+    }
+
+    .col-faction {
+      width: 19%;
+    }
+
+    .col-type {
+      width: 15%;
+    }
+
+    .col-threat {
+      width: 72px;
+      text-align: center;
+    }
+
+    .col-add {
+      width: 140px;
+    }
+
+    td.col-threat,
+    th.col-threat {
+      text-align: center;
+      padding-left: 0.25rem;
+      padding-right: 0.25rem;
+    }
+
+    .col-add button {
+      font-size: 0.78rem;
+      padding: 0.22rem 0.36rem;
+      min-width: 1.7rem;
+    }
+
+    button {
+      margin: 0.12rem;
+      padding: 0.3rem 0.45rem;
+      cursor: pointer;
+      border: 1px solid #8a6a52;
+      background: #3a2f28;
+      color: #f3eadf;
+      border-radius: 6px;
+    }
+
+    button:hover {
+      background: #644328;
+    }
+
+    button.direction-toggle.active {
+      background: #644328;
+      border-color: #d0a47d;
+      color: #fff4e8;
+      font-weight: 700;
+    }
+
+    .deck-message {
+      display: none;
+      margin-bottom: 1rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #8a6a52;
+      background: #3a2f28;
+    }
+
+    .deck-message.error {
+      display: block;
+      color: #ff9f9f;
+    }
+
+    .deck-message.success {
+      display: block;
+      color: #9be28f;
+    }
+
+    .validator {
+      margin-bottom: 1rem;
+    }
+
+    .valid {
+      color: #9be28f;
+    }
+
+    .invalid {
+      color: #ff9f9f;
+      margin: 0.35rem 0;
+    }
+
+    .loading,
+    .error {
+      margin: 0.35rem 0;
+    }
+
+    .error {
+      color: #ff9f9f;
+    }
+
+    .deck-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .faction-column {
+      min-height: 300px;
+    }
+
+    .captain-feature {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #5a4638;
+    }
+
+    .captain-feature img {
+      width: 64px;
+      aspect-ratio: 2.5 / 3.5;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #5a4638;
+      flex-shrink: 0;
+    }
+
+    .captain-feature h3 {
+      margin: 0;
+    }
+
+    .captain-feature p {
+      margin: 0.25rem 0 0;
+    }
+
+    .captain-feature button {
+      margin-top: 0.4rem;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.4rem;
+    }
+
+    .captain-placeholder {
+      width: 64px;
+      aspect-ratio: 2.5 / 3.5;
+      border-radius: 6px;
+      border: 1px dashed #8a6a52;
+      display: grid;
+      place-items: center;
+      color: #8a6a52;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .faction-stats {
+      font-size: 0.85rem;
+      line-height: 1.45;
+      margin-bottom: 0.75rem;
+      opacity: 0.9;
+    }
+
+    .type-breakdown {
+      margin-top: 0.35rem;
+    }
+
+    .deck-type-section {
+      margin-top: 0.85rem;
+    }
+
+    .deck-type-heading {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #d0a47d;
+      border-bottom: 1px solid #5a4638;
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .deck-card {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      min-height: 34px;
+    }
+
+    .deck-card-main {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-width: 0;
+    }
+
+    .deck-card img {
+      width: 32px;
+      vertical-align: middle;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .deck-card-title {
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .deck-card-title strong {
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .deck-card-meta {
+      display: block;
+      margin-top: 0.1rem;
+      font-weight: 400;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .direction-toggle-buttons {
+      margin-top: 0.4rem;
+      display: flex;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+
+    .direction-toggle-buttons button {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.4rem;
+      min-width: 2rem;
+    }
+
+    .card-tooltip {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999;
+      width: 240px;
+      background: #2b241f;
+      border: 1px solid #8a6a52;
+      border-radius: 12px;
+      padding: 0.75rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      display: none;
+    }
+
+    .card-tooltip img {
+      width: 100%;
+      aspect-ratio: 2.5 / 3.5;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-tooltip h3 {
+      margin-bottom: 0.25rem;
+    }
+
+    .card-tooltip p {
+      margin: 0.35rem 0;
+      font-size: 0.9rem;
+    }
+
+    .muted {
+      opacity: 0.75;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1200px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .deck-columns {
+        grid-template-columns: 1fr;
+      }
+
+      .col-threat {
+        width: 64px;
+      }
+
+      .col-add {
+        width: 132px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>The Narrowing Deck Builder</h1>
+    <p class="muted">Build a 3-faction deck and validate it.</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Card Pool</h2>
+
+      <div class="controls">
+        <div>
+          <label for="factionFilter">Faction:</label>
+          <select id="factionFilter" onchange="renderCardPool()">
+            <option value="All">All</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="typeFilter">Type:</label>
+          <select id="typeFilter" onchange="renderCardPool()">
+            <option value="All">All</option>
+          </select>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th class="col-name" onclick="sortCardPool('name')">Name <span id="sort-name"></span></th>
+            <th class="col-faction" onclick="sortCardPool('faction')">Faction <span id="sort-faction"></span></th>
+            <th class="col-type" onclick="sortCardPool('type')">Type <span id="sort-type"></span></th>
+            <th class="col-threat" onclick="sortCardPool('threat')">Threat <span id="sort-threat"></span></th>
+            <th class="col-add">Add</th>
+          </tr>
+        </thead>
+
+        <tbody id="cardPool">
+          <tr>
+            <td colspan="5" class="loading">Loading cards...</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Your Deck</h2>
+
+      <div class="deck-tools">
+        <div>
+          <label for="deckTitle">Deck Title:</label>
+          <input
+            type="text"
+            id="deckTitle"
+            placeholder="Untitled Deck"
+            oninput="updateDeckTitleFromInput()"
+          >
+        </div>
+
+        <button onclick="copyShareURL()">Copy Share URL</button>
+        <button onclick="clearDeck()">Clear Deck</button>
+      </div>
+
+      <div class="deck-message" id="deckMessage"></div>
+
+      <div class="validator" id="validator"></div>
+      <div class="deck-columns" id="deckList"></div>
+    </section>
+  </main>
+
+  <div class="card-tooltip" id="cardTooltip"></div>
+
+  <script>
+    let cards = [];
+    let deck = [];
+    let deckTitle = "";
+
+    let cardSort = {
+      key: "name",
+      direction: "asc"
+    };
+
+    const directions = ["North", "East", "South", "West"];
+
+    const typeOrder = [
+      "Captain",
+      "Creature",
+      "Scheme",
+      "Action"
+    ];
+
+    async function loadCards() {
+      try {
+        const response = await fetch("cards.csv");
+
+        if (!response.ok) {
+          throw new Error("Could not load cards.csv");
+        }
+
+        const csvText = await response.text();
+
+        cards = parseCSV(csvText).map(card => ({
+          id: getCSVValue(card, "ID"),
+          name: getCSVValue(card, "TITLE"),
+          faction: getCSVValue(card, "FACTION"),
+          type: getCSVValue(card, "TYPE"),
+          threat: getCSVValue(card, "THREAT"),
+          text: getCSVValue(card, "CARD TEXT"),
+          image: getImagePath(getCSVValue(card, "IMAGE"))
+        })).filter(card =>
+          card.id &&
+          card.name &&
+          card.faction &&
+          card.type
+        );
+
+        loadDeckFromURL();
+
+        renderFactionFilter();
+        renderTypeFilter();
+        renderCardPool();
+        renderDeck();
+      } catch (error) {
+        document.getElementById("cardPool").innerHTML = `
+          <tr>
+            <td colspan="5" class="error">
+              Could not load cards.csv. If you are opening this file directly, run a local server with: python3 -m http.server 8000
+            </td>
+          </tr>
+        `;
+
+        console.error(error);
+      }
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let currentRow = [];
+      let currentValue = "";
+      let insideQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const nextChar = text[i + 1];
+
+        if (char === '"' && insideQuotes && nextChar === '"') {
+          currentValue += '"';
+          i++;
+        } else if (char === '"') {
+          insideQuotes = !insideQuotes;
+        } else if (char === "," && !insideQuotes) {
+          currentRow.push(currentValue);
+          currentValue = "";
+        } else if ((char === "\n" || char === "\r") && !insideQuotes) {
+          if (char === "\r" && nextChar === "\n") {
+            i++;
+          }
+
+          currentRow.push(currentValue);
+
+          if (currentRow.some(value => value.trim() !== "")) {
+            rows.push(currentRow);
+          }
+
+          currentRow = [];
+          currentValue = "";
+        } else {
+          currentValue += char;
+        }
+      }
+
+      currentRow.push(currentValue);
+
+      if (currentRow.some(value => value.trim() !== "")) {
+        rows.push(currentRow);
+      }
+
+      const headers = rows.shift().map(header => header.trim());
+
+      return rows.map(row => {
+        const card = {};
+
+        headers.forEach((header, index) => {
+          card[header] = row[index] ? row[index].trim() : "";
+        });
+
+        return card;
+      });
+    }
+
+    function getCSVValue(row, key) {
+      const normalizedKey = key.trim().toUpperCase();
+
+      const actualKey = Object.keys(row).find(header =>
+        header.trim().toUpperCase() === normalizedKey
+      );
+
+      return actualKey ? row[actualKey] : "";
+    }
+
+    function renderFactionFilter() {
+      const filter = document.getElementById("factionFilter");
+      const selectedValue = filter.value;
+
+      filter.innerHTML = `<option value="All">All</option>`;
+
+      const factions = [...new Set(cards.map(card => card.faction))].sort();
+
+      factions.forEach(faction => {
+        const option = document.createElement("option");
+        option.value = faction;
+        option.textContent = faction;
+        filter.appendChild(option);
+      });
+
+      filter.value = selectedValue || "All";
+    }
+
+    function renderTypeFilter() {
+      const filter = document.getElementById("typeFilter");
+      const selectedValue = filter.value;
+
+      filter.innerHTML = `<option value="All">All</option>`;
+
+      const types = [...new Set(cards.map(card => card.type))]
+        .sort(compareTypes);
+
+      types.forEach(type => {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        filter.appendChild(option);
+      });
+
+      filter.value = selectedValue || "All";
+    }
+
+    function renderCardPool() {
+      const cardPool = document.getElementById("cardPool");
+      const selectedFaction = document.getElementById("factionFilter").value;
+      const selectedType = document.getElementById("typeFilter").value;
+
+      cardPool.innerHTML = "";
+
+      let filteredCards = cards;
+
+      if (selectedFaction !== "All") {
+        filteredCards = filteredCards.filter(card => card.faction === selectedFaction);
+      }
+
+      if (selectedType !== "All") {
+        filteredCards = filteredCards.filter(card => card.type === selectedType);
+      }
+
+      filteredCards = [...filteredCards].sort((a, b) => {
+        const aValue = String(a[cardSort.key] || "").toLowerCase();
+        const bValue = String(b[cardSort.key] || "").toLowerCase();
+
+        const aNumber = Number(aValue);
+        const bNumber = Number(bValue);
+
+        if (!Number.isNaN(aNumber) && !Number.isNaN(bNumber)) {
+          return cardSort.direction === "asc"
+            ? aNumber - bNumber
+            : bNumber - aNumber;
+        }
+
+        if (aValue < bValue) {
+          return cardSort.direction === "asc" ? -1 : 1;
+        }
+
+        if (aValue > bValue) {
+          return cardSort.direction === "asc" ? 1 : -1;
+        }
+
+        return 0;
+      });
+
+      if (filteredCards.length === 0) {
+        cardPool.innerHTML = `
+          <tr>
+            <td colspan="5" class="muted">No cards match those filters.</td>
+          </tr>
+        `;
+
+        renderSortIndicators();
+        return;
+      }
+
+      filteredCards.forEach(card => {
+        const row = document.createElement("tr");
+
+        let buttons = "";
+
+        if (card.type === "Captain") {
+          buttons = `<button onclick="addCard('${escapeAttribute(card.id)}', 'Captain')">Add</button>`;
+        } else {
+          buttons = directions.map(direction =>
+            `<button onclick="addCard('${escapeAttribute(card.id)}', '${direction}')">${direction[0]}</button>`
+          ).join("");
+        }
+
+        row.innerHTML = `
+          <td class="col-name">${escapeHTML(card.name)}</td>
+          <td class="col-faction">${escapeHTML(card.faction)}</td>
+          <td class="col-type">${escapeHTML(card.type)}</td>
+          <td class="col-threat">${escapeHTML(card.threat)}</td>
+          <td class="col-add">${buttons}</td>
+        `;
+
+        addTooltipEvents(row, card);
+        cardPool.appendChild(row);
+      });
+
+      renderSortIndicators();
+    }
+
+    function sortCardPool(key) {
+      if (cardSort.key === key) {
+        cardSort.direction = cardSort.direction === "asc" ? "desc" : "asc";
+      } else {
+        cardSort.key = key;
+        cardSort.direction = "asc";
+      }
+
+      renderCardPool();
+    }
+
+    function renderSortIndicators() {
+      const keys = ["name", "faction", "type", "threat"];
+
+      keys.forEach(key => {
+        const span = document.getElementById(`sort-${key}`);
+
+        if (!span) {
+          return;
+        }
+
+        if (cardSort.key === key) {
+          span.textContent = cardSort.direction === "asc" ? "↑" : "↓";
+        } else {
+          span.textContent = "";
+        }
+      });
+    }
+
+    function addCard(cardId, direction) {
+      const card = cards.find(c => c.id === cardId);
+
+      if (!card) {
+        return;
+      }
+
+      const currentFactions = [...new Set(deck.map(card => card.faction))];
+
+      if (!currentFactions.includes(card.faction) && currentFactions.length >= 3) {
+        showDeckMessage("A deck can only contain 3 factions.", "error");
+        return;
+      }
+
+      if (card.type === "Captain") {
+        const captainAlreadyInFaction = deck.some(deckCard =>
+          deckCard.faction === card.faction &&
+          deckCard.type === "Captain"
+        );
+
+        if (captainAlreadyInFaction) {
+          showDeckMessage(
+            `${card.faction} already has a Captain. Remove that Captain before adding another.`,
+            "error"
+          );
+          return;
+        }
+      }
+
+      deck.push({
+        ...card,
+        direction
+      });
+
+      clearDeckMessage();
+      renderDeck();
+    }
+
+    function toggleCardDirection(cardId, direction) {
+      const existingIndex = deck.findIndex(card =>
+        card.id === cardId &&
+        card.direction === direction
+      );
+
+      if (existingIndex >= 0) {
+        deck.splice(existingIndex, 1);
+        clearDeckMessage();
+        renderDeck();
+        return;
+      }
+
+      addCard(cardId, direction);
+    }
+
+    function removeCard(index) {
+      deck.splice(index, 1);
+      clearDeckMessage();
+      renderDeck();
+    }
+
+    function renderDeck() {
+      const deckList = document.getElementById("deckList");
+      deckList.innerHTML = "";
+
+      const factions = [...new Set(deck.map(card => card.faction))];
+
+      for (let i = 0; i < 3; i++) {
+        const faction = factions[i];
+
+        const column = document.createElement("div");
+        column.className = "faction-column";
+
+        if (!faction) {
+          column.innerHTML = `
+            <div class="captain-feature">
+              <div class="captain-placeholder">?</div>
+              <div>
+                <h3>Faction ${i + 1}</h3>
+                <p class="muted">Add cards from a faction to fill this column.</p>
+              </div>
+            </div>
+          `;
+
+          deckList.appendChild(column);
+          continue;
+        }
+
+        const factionCards = deck
+          .map((card, index) => ({ card, index }))
+          .filter(item => item.card.faction === faction);
+
+        const captainCount = factionCards.filter(item => item.card.type === "Captain").length;
+        const captain = factionCards.find(item => item.card.type === "Captain");
+        const captainIndex = captain ? captain.index : null;
+
+        const directionCounts = {};
+
+        directions.forEach(direction => {
+          directionCounts[direction] = factionCards.filter(item =>
+            item.card.direction === direction &&
+            item.card.type !== "Captain"
+          ).length;
+        });
+
+        const typeCounts = {};
+
+        factionCards.forEach(item => {
+          const type = item.card.type || "Unknown";
+
+          if (!typeCounts[type]) {
+            typeCounts[type] = 0;
+          }
+
+          typeCounts[type]++;
+        });
+
+        const typeBreakdown = Object.entries(typeCounts)
+          .sort((a, b) => compareTypes(a[0], b[0]))
+          .map(([type, count]) => `${type}: ${count}`)
+          .join(" · ");
+
+        column.innerHTML = `
+          <div class="captain-feature">
+            ${
+              captain
+                ? `<img src="${escapeAttribute(captain.card.image)}" alt="${escapeAttribute(captain.card.name)}">`
+                : `<div class="captain-placeholder">?</div>`
+            }
+
+            <div>
+              <h3>${escapeHTML(faction)}</h3>
+
+              <p class="muted">
+                ${
+                  captain
+                    ? escapeHTML(captain.card.name)
+                    : "No Captain selected"
+                }
+              </p>
+
+              ${
+                captain
+                  ? `<button onclick="removeCard(${captainIndex})">Remove Captain</button>`
+                  : ""
+              }
+            </div>
+          </div>
+
+          <div class="faction-stats">
+            <div>${factionCards.length}/13 cards</div>
+            <div>Captain: ${captainCount}/1</div>
+            <div>
+              N ${directionCounts.North}/3 ·
+              E ${directionCounts.East}/3 ·
+              S ${directionCounts.South}/3 ·
+              W ${directionCounts.West}/3
+            </div>
+            <div class="type-breakdown">
+              ${escapeHTML(typeBreakdown || "No cards yet")}
+            </div>
+          </div>
+        `;
+
+        if (captain) {
+          const captainFeature = column.querySelector(".captain-feature");
+          addTooltipEvents(captainFeature, captain.card);
+        }
+
+        const nonCaptainCards = factionCards.filter(item => item.card.type !== "Captain");
+        const groupedCards = {};
+
+        nonCaptainCards.forEach(item => {
+          const id = item.card.id;
+
+          if (!groupedCards[id]) {
+            groupedCards[id] = {
+              card: item.card,
+              copies: []
+            };
+          }
+
+          groupedCards[id].copies.push(item);
+        });
+
+        const groupedCardsByType = {};
+
+        Object.values(groupedCards).forEach(group => {
+          const type = group.card.type || "Unknown";
+
+          if (!groupedCardsByType[type]) {
+            groupedCardsByType[type] = [];
+          }
+
+          groupedCardsByType[type].push(group);
+        });
+
+        Object.entries(groupedCardsByType)
+          .sort((a, b) => compareTypes(a[0], b[0]))
+          .forEach(([type, groups]) => {
+            const section = document.createElement("div");
+            section.className = "deck-type-section";
+
+            const heading = document.createElement("div");
+            heading.className = "deck-type-heading";
+
+            const totalCopies = groups.reduce((sum, group) => {
+              return sum + group.copies.length;
+            }, 0);
+
+            heading.textContent = `${type} (${totalCopies})`;
+            section.appendChild(heading);
+
+            groups
+              .sort((a, b) => a.card.name.localeCompare(b.card.name))
+              .forEach(group => {
+                const div = document.createElement("div");
+                div.className = "deck-card";
+
+                const sortedCopies = group.copies.sort((a, b) => {
+                  return directions.indexOf(a.card.direction) - directions.indexOf(b.card.direction);
+                });
+
+                const selectedDirections = sortedCopies.map(copy => copy.card.direction);
+
+                const directionList = selectedDirections.length > 0
+                  ? selectedDirections.join(", ")
+                  : "No directions";
+
+                const toggleButtons = directions.map(direction => {
+                  const isActive = selectedDirections.includes(direction);
+                  const activeClass = isActive ? "active" : "";
+
+                  return `
+                    <button
+                      class="direction-toggle ${activeClass}"
+                      onclick="toggleCardDirection('${escapeAttribute(group.card.id)}', '${direction}')"
+                      title="${isActive ? "Remove" : "Add"} ${direction}"
+                    >
+                      ${direction[0]}
+                    </button>
+                  `;
+                }).join("");
+
+                div.innerHTML = `
+                  <div class="deck-card-main">
+                    <img src="${escapeAttribute(group.card.image)}" alt="${escapeAttribute(group.card.name)}">
+                    <div class="deck-card-title">
+                      <strong>${sortedCopies.length}x ${escapeHTML(group.card.name)}</strong>
+                      <span class="deck-card-meta">
+                        ${escapeHTML(group.card.type)} (${escapeHTML(directionList)})
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="direction-toggle-buttons">
+                    ${toggleButtons}
+                  </div>
+                `;
+
+                addTooltipEvents(div, group.card);
+                section.appendChild(div);
+              });
+
+            column.appendChild(section);
+          });
+
+        deckList.appendChild(column);
+      }
+
+      validateDeck();
+    }
+
+    function validateDeck() {
+      const validator = document.getElementById("validator");
+      const messages = [];
+      const factions = [...new Set(deck.map(card => card.faction))];
+
+      if (deck.length !== 39) {
+        messages.push(`Deck must contain 39 total cards. Current: ${deck.length}`);
+      }
+
+      if (factions.length !== 3) {
+        messages.push(`Deck must contain exactly 3 factions. Current: ${factions.length}`);
+      }
+
+      factions.forEach(faction => {
+        const factionCards = deck.filter(card => card.faction === faction);
+        const captains = factionCards.filter(card => card.type === "Captain");
+
+        if (factionCards.length !== 13) {
+          messages.push(`${faction} must contain 13 cards. Current: ${factionCards.length}`);
+        }
+
+        if (captains.length !== 1) {
+          messages.push(`${faction} must contain exactly 1 Captain. Current: ${captains.length}`);
+        }
+
+        directions.forEach(direction => {
+          const count = factionCards.filter(card =>
+            card.direction === direction &&
+            card.type !== "Captain"
+          ).length;
+
+          if (count !== 3) {
+            messages.push(`${faction} must contain 3 ${direction} cards. Current: ${count}`);
+          }
+        });
+
+        const seen = new Set();
+
+        factionCards.forEach(card => {
+          const key = `${card.id}-${card.direction}`;
+
+          if (seen.has(key)) {
+            messages.push(`${card.name} is duplicated as ${card.direction}.`);
+          }
+
+          seen.add(key);
+        });
+      });
+
+      if (messages.length === 0) {
+        validator.innerHTML = `<p class="valid">Deck is valid.</p>`;
+      } else {
+        validator.innerHTML = messages.map(message =>
+          `<p class="invalid">${escapeHTML(message)}</p>`
+        ).join("");
+      }
+    }
+
+    function compareTypes(a, b) {
+      const aIndex = typeOrder.indexOf(a);
+      const bIndex = typeOrder.indexOf(b);
+
+      if (aIndex !== -1 && bIndex !== -1) {
+        return aIndex - bIndex;
+      }
+
+      if (aIndex !== -1) {
+        return -1;
+      }
+
+      if (bIndex !== -1) {
+        return 1;
+      }
+
+      return String(a).localeCompare(String(b));
+    }
+
+    function updateDeckTitleFromInput() {
+      deckTitle = document.getElementById("deckTitle").value.trim();
+    }
+
+    function showDeckMessage(message, type = "error") {
+      const messageBox = document.getElementById("deckMessage");
+
+      messageBox.textContent = message;
+      messageBox.className = `deck-message ${type}`;
+    }
+
+    function clearDeckMessage() {
+      const messageBox = document.getElementById("deckMessage");
+
+      messageBox.textContent = "";
+      messageBox.className = "deck-message";
+    }
+
+    function clearDeck() {
+      const confirmed = confirm("Clear the current deck? This cannot be undone.");
+
+      if (!confirmed) {
+        return;
+      }
+
+      deck = [];
+      clearDeckMessage();
+      renderDeck();
+    }
+
+    function getDeckState() {
+      updateDeckTitleFromInput();
+
+      return {
+        title: deckTitle,
+        cards: deck.map(card => ({
+          id: card.id,
+          direction: card.direction
+        }))
+      };
+    }
+
+    function copyShareURL() {
+      const deckState = getDeckState();
+      const encodedDeck = base64UrlEncode(JSON.stringify(deckState));
+      const url = `${window.location.origin}${window.location.pathname}?deck=${encodedDeck}`;
+
+      window.history.replaceState(null, "", url);
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(url)
+          .then(() => {
+            showDeckMessage("Share URL copied to clipboard.", "success");
+          })
+          .catch(() => {
+            prompt("Copy this deck URL:", url);
+          });
+      } else {
+        prompt("Copy this deck URL:", url);
+      }
+    }
+
+    function loadDeckFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      const encodedDeck = params.get("deck");
+
+      if (!encodedDeck) {
+        return;
+      }
+
+      try {
+        const deckState = JSON.parse(base64UrlDecode(encodedDeck));
+
+        deckTitle = deckState.title || "";
+        document.getElementById("deckTitle").value = deckTitle;
+
+        deck = [];
+
+        (deckState.cards || []).forEach(savedCard => {
+          const card = cards.find(card => card.id === savedCard.id);
+
+          if (!card) {
+            return;
+          }
+
+          if (
+            savedCard.direction !== "Captain" &&
+            !directions.includes(savedCard.direction)
+          ) {
+            return;
+          }
+
+          deck.push({
+            ...card,
+            direction: savedCard.direction
+          });
+        });
+
+        showDeckMessage("Deck loaded from URL.", "success");
+      } catch (error) {
+        showDeckMessage("Could not load deck from URL.", "error");
+        console.error(error);
+      }
+    }
+
+    function base64UrlEncode(value) {
+      const bytes = new TextEncoder().encode(value);
+      let binary = "";
+
+      bytes.forEach(byte => {
+        binary += String.fromCharCode(byte);
+      });
+
+      return btoa(binary)
+        .replaceAll("+", "-")
+        .replaceAll("/", "_")
+        .replaceAll("=", "");
+    }
+
+    function base64UrlDecode(value) {
+      let base64 = value
+        .replaceAll("-", "+")
+        .replaceAll("_", "/");
+
+      while (base64.length % 4) {
+        base64 += "=";
+      }
+
+      const binary = atob(base64);
+      const bytes = Uint8Array.from(binary, char => char.charCodeAt(0));
+
+      return new TextDecoder().decode(bytes);
+    }
+
+    function addTooltipEvents(element, card) {
+      element.addEventListener("mouseenter", event => showTooltip(card, event));
+      element.addEventListener("mousemove", event => moveTooltip(event));
+      element.addEventListener("mouseleave", hideTooltip);
+      element.addEventListener("click", event => showTooltip(card, event));
+    }
+
+    function showTooltip(card, event) {
+      const tooltip = document.getElementById("cardTooltip");
+
+      tooltip.innerHTML = `
+        <img src="${escapeAttribute(card.image)}" alt="${escapeAttribute(card.name)}">
+        <h3>${escapeHTML(card.name)}</h3>
+        <p><strong>${escapeHTML(card.faction)}</strong> — ${escapeHTML(card.type)}</p>
+        <p><strong>Threat:</strong> ${escapeHTML(card.threat || "—")}</p>
+        <p>${escapeHTML(card.text)}</p>
+      `;
+
+      tooltip.style.display = "block";
+      moveTooltip(event);
+    }
+
+    function moveTooltip(event) {
+      const tooltip = document.getElementById("cardTooltip");
+      const offset = 16;
+
+      let x = event.clientX + offset;
+      let y = event.clientY + offset;
+
+      if (x + tooltip.offsetWidth > window.innerWidth) {
+        x = event.clientX - tooltip.offsetWidth - offset;
+      }
+
+      if (y + tooltip.offsetHeight > window.innerHeight) {
+        y = event.clientY - tooltip.offsetHeight - offset;
+      }
+
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+    }
+
+    function hideTooltip() {
+      document.getElementById("cardTooltip").style.display = "none";
+    }
+
+    function getImagePath(imageValue) {
+      if (!imageValue) {
+        return "";
+      }
+
+      const image = imageValue.trim();
+
+      if (
+        image.startsWith("http://") ||
+        image.startsWith("https://") ||
+        image.startsWith("images/") ||
+        image.startsWith("/")
+      ) {
+        return image;
+      }
+
+      return `images/${image}`;
+    }
+
+    function escapeHTML(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function escapeAttribute(value) {
+      return escapeHTML(value);
+    }
+
+    loadCards();
+  </script>
+</body>
+</html>

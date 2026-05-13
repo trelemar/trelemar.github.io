@@ -1,0 +1,161 @@
+ID,TITLE,FACTION,TYPE,POWER,RARITY,CARD TEXT,NOTES,TYPE 2,DATE ADDED,PRINT,IMAGE,card_background,Action Title,Creature Title,Attachment Title,Scheme Title,Captain Title,Nickname,COLOR,FACTION style,TYPE style
+accepting_philosophy,Accepting Philosophy,Blistered,Action,,,"{b: Enter:} If your opponent plays any Creatures on their next turn, they are discarded instead.",,,,Y,accepting_philosophy.png,bg_blistered.png,Accepting Philosophy,,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+cleanse_by_flame,Cleanse By Flame,Blistered,Action,,,"{b: Enter:} Deal 2 damage to each creature.
+For each non-Blistered creature destroyed this way, its controller loses 1 $secret.",,,,Y,cleanse_by_flame.png,bg_blistered.png,Cleanse By Flame,,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+fire_sale,Fire Sale,Blistered,Action,,,"{b: Enter:} Burn 2 creatures from your discard. If you do, gain 3 Secrets.",,,,Y,fire_sale.png,bg_blistered.png,Fire Sale,,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+repurposed_fate,Repurposed Fate,Blistered,Action,,,"{b: Enter:} Burn a friendly creature in play. If you do, draw up to 2 cards.",,,,Y,repurposed_fate.png,bg_blistered.png,Repurposed Fate,,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+soul_extraction,Soul Extraction,Blistered,Action,,,"{b: Enter:} Burn a card from your hand. If you do, search one of your Paths for a card and add it to your hand. Shuffle that Path.",,,,Y,soul_extraction.png,bg_blistered.png,Soul Extraction,,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+acolyte_conversion,Acolyte Conversion,Blistered,Attachment,,,"The attached creature gains:
+This creature also belongs to faction Blistered.",,,,Y,acolyte_conversion.png,bg_blistered.png,,,Acolyte Conversion,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+cult_leader,Cult Leader,Blistered,Captain,3,,{b: Enter:} Gain 1 $secret for every 3 creatures in all discard and burn piles.,,,,Y,cult_leader.png,bg_blistered.png,,,,,Cult Leader,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+blood_oathkeeper,Blood Oathkeeper,Blistered,Creature,3,,{b: Gather:} Deal 1 damage to another friendly creature. Alert and Fight with that creature.,,,,Y,blood_oathkeeper.png,bg_blistered.png,,Blood Oathkeeper,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+bloodsoaker,Bloodsoaker,Blistered,Creature,4,,"While this creature is Alert, damage dealt to friendly Exposed creatures in a fight is dealt to this creature instead.","Maybe too op, felt bad",,,Y,bloodsoaker.png,bg_blistered.png,,Bloodsoaker,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+charles_burns,Charles Burns,Blistered,Creature,3,,"During your opponent's Alert step, creatures they Alert take 1 damage. They may choose to leave any number of their creatures Exposed instead.",,,,Y,charles_burns.png,bg_blistered.png,,Charles Burns,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+faithful_missionary,Faithful Missionary,Blistered,Creature,3,,{b: Action:} Move all $secret on a creature to your pool. Burn Faithful Missionary.,,,3/12/2026,Y,faithful_missionary.png,bg_blistered.png,,Faithful Missionary,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+hooded_figure,Hooded Figure,Blistered,Creature,2,,"{b: Enter:} Draw a card.
+
+{b: Gather:} Shuffle a creature from your discard pile into an Open Path.",,,,Y,hooded_figure.png,bg_blistered.png,,Hooded Figure,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+rite_influencer,Rite Influencer,Blistered,Creature,2,,"{b: Gather:} Discard a creature from your hand. If you do, gain 1 $secret.",,,,Y,rite_influencer.png,bg_blistered.png,,Rite Influencer,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+voluntary_tribute,Voluntary Tribute,Blistered,Creature,1,,"{b: Action:} Return this card to your hand.
+
+{b: Trap:} If a Captain would be captured in this Raid, Burn this card instead.",,Trap,,Y,voluntary_tribute.png,bg_blistered.png,,Voluntary Tribute,,,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+backfire,Backfire,Blistered,Scheme,,,{b: Before Raid:} Your opponent Burns 2 random cards from their hand.,,,,Y,backfire.png,bg_blistered.png,,,,Backfire,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+ethereal_trust,Ethereal Trust,Blistered,Scheme,,,"At the end of each turn, the active player loses all but 3 of their $secret.
+
+{b: After Raid:} Destroy this Scheme.",PRE PATH SCHEME NEEDS UPDATING,,,Y,ethereal_trust.png,bg_blistered.png,,,,Ethereal Trust,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+fatal_influence,Fatal Influence,Blistered,Scheme,,,"Before Plotting, your opponent must Burn a card from their hand matching the direction they intend to Plot.",,,,Y,fatal_influence.png,bg_blistered.png,,,,Fatal Influence,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+satanic_carvings,Satanic Carvings,Blistered,Scheme,,,"Your opponent’s Plot cost is increased by 2.
+When they Plot, they may destroy any number of creatures they control. They pay 1 fewer $secret for each creature destroyed this way.
+Destroy this Scheme after they Plot.",PRE PATH SCHEME NEEDS UPDATING,,,Y,satanic_carvings.png,bg_blistered.png,,,,Satanic Carvings,,,$blistered_color,$bg[$blistered_color],$bg[$blistered_color]
+false_lead,False Lead,Criminals,Action,,,{b: Enter:} Your opponent loses 2 $secret.,,,,Y,false_lead.png,bg_criminals.png,False Lead,,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+foundational_implosion,Foundational Implosion,Criminals,Action,,,"{b: Enter:} Choose 2 open Paths controlled by the same player. Shuffle them together, then split the cards as evenly as possible back into 2 Paths. Burn this card.",,,,Y,foundational_implosion.png,bg_criminals.png,Foundational Implosion,,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+no_detours,No Detours,Criminals,Action,,,{b: Enter:} Your opponent cannot play cards that are not Aligned on their next turn.,WIP name,,,Y,no_detours.png,bg_criminals.png,No Detours,,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+premeditation,Premeditation,Criminals,Action,,,{b: Enter:} Look at your opponent's hand.,,,3/11/2026,Y,premeditation.png,bg_criminals.png,Premeditation,,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+radio_interference,Radio Interference,Criminals,Action,,,{b: Enter:} You may discard up to 2 cards from your hand. Gain a Secret for each card Aligned with your opponent's compass discarded this way.,,,,Y,radio_interference.png,bg_criminals.png,Radio Interference,,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+suspicious_tracks,Suspicious Tracks,Criminals,Action,,,{b: Enter:} Gain 1 $secret. Look at the top 3 cards of any Path. You may reorder them.,,,,Y,suspicious_tracks.png,bg_criminals.png,Suspicious Tracks,,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+under_our_noses,Under our Noses,Criminals,Action,,,{b: Enter:} Alert 2 creatures. Steal 1 $secret for each enemy creature alerted this way. You may use friendly creatures you alerted this turn.,,,,Y,under_our_noses.png,bg_criminals.png,Under our Noses,,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+bear_trap,Bear Trap,Criminals,Attachment,,,"After this creature is used, Damage it and Fatigue it.",,,,Y,bear_trap.png,bg_criminals.png,,,Bear Trap,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+pricklehide_cap,Pricklehide Cap,Criminals,Attachment,,,"This creature gains, ""This creature deals damage equal to their Threat while Exposed.""",,,,Y,pricklehide_cap.png,bg_criminals.png,,,Pricklehide Cap,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+trust_skimmer,Trust Skimmer,Criminals,Attachment,,,Secrets on this creature transfer to the opponent's pool when it becomes Alert.,,,3/13/2026,Y,trust_skimmer.png,bg_criminals.png,,,Trust Skimmer,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+con_artist,Con Artist,Criminals,Captain,5,,{b: Captured:} Your opponent steals all of your $secret.,,,,Y,con_artist.png,bg_criminals.png,,,,,Con Artist,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+dealmaker,Dealmaker,Criminals,Creature,3,,"You may destroy a friendly Scheme before playing a Scheme.
+
+{b: Enter/Gather:} Gain a $secret for each card in your smallest closed Path. Discard that Path.",,,,Y,dealmaker.png,bg_criminals.png,,Dealmaker,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+informant,Informant,Criminals,Creature,2,,"{b: Enter:} Destroy a Scheme.
+
+{b: Gather:} Look at the top card of any Path.",REPRINT FOR UTICA,,,Y,informant.png,bg_criminals.png,,Informant,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+misleading_guide,Misleading Guide,Criminals,Creature,2,,{b: Gather:} Reveal the top card of one of your Paths.,,,,Y,misleading_guide.png,bg_criminals.png,,Misleading Guide,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+trail_robber,Trail Robber,Criminals,Creature,3,,{b: After Fight:} Steal 1 $secret from your opponent.,"Possibly too strong, maybe a 2",,,Y,trail_robber.png,bg_criminals.png,,Trail Robber,,,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+conflicting_alibi,Conflicting Alibi,Criminals,Scheme,,,"During your turn, your Alert and Draw steps are swapped.
+
+{b: After Raid:} Destroy this Scheme.",PRE PATH SCHEME NEEDS UPDATING,,,Y,conflicting_alibi.png,bg_criminals.png,,,,Conflicting Alibi,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+shell_game,Shell Game,Criminals,Scheme,,,"At the start of your turn, if you Plotted on your previous turn, you may change your compass to any direction. If you do, destroy this Scheme.",,,,Y,shell_game.png,bg_criminals.png,,,,Shell Game,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+wind_whispers,Wind Whispers,Criminals,Scheme,,,"At the start of your Raid step, choose a faction. If a Captain of that faction is Captured in the Raid, gain 1 $secret for each creature of that faction in play.
+
+{b: After Raid:} Destroy this Scheme.",,,,Y,wind_whispers.png,bg_criminals.png,,,,Wind Whispers,,,$criminals_color,$bg[$criminals_color],$bg[$criminals_color]
+hot_garbage,Hot Garbage,Phibiola,Action,,,{b: Enter:} Lose 1 $secret. Put any card from your discard pile into your hand.,,,,Y,hot_garbage.png,bg_phibiola.png,Hot Garbage,,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+not_quite_ripe,Not Quite Ripe,Phibiola,Action,,,{b: Enter:} Put a card from your hand on the bottom of one your open Paths. Draw a card from that Path.,,,,Y,not_quite_ripe.png,bg_phibiola.png,Not Quite Ripe,,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+outlast,Outlast,Phibiola,Action,,,"{b: Enter:} Until the end of your opponent’s next turn, each time they Fight with a creature, Fatigue that creature.",,,,Y,outlast.png,bg_phibiola.png,Outlast,,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+reforestation,Reforestation,Phibiola,Action,,,{b: Enter:} Shuffle your discard pile into one of your open Paths.,,,,Y,reforestation.png,bg_phibiola.png,Reforestation,,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+slim_pickins,Slim Pickins,Phibiola,Action,,,"{b: Enter:} Draw 3 cards from one of your open Paths.
+Reveal the remaining cards in that Path.
+If it contains no Captains, close it.",,,,Y,slim_pickins.png,bg_phibiola.png,Slim Pickins,,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+toxic_spores,Toxic Spores,Phibiola,Action,,,"{b: Enter:} On your next turn before your Alert phase, destroy all Exposed creatures.",,,,Y,toxic_spores.png,bg_phibiola.png,Toxic Spores,,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+biofilm,Biofilm,Phibiola,Attachment,,,"The attached creature and its neighbors gain:
+“After this creature is used, Fatigue it.”",,,,Y,biofilm.png,bg_phibiola.png,,,Biofilm,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+bog_needle,Bog Needle,Phibiola,Attachment,,,"When this creature is used, discard the top card of one of its controller's Paths.",,,,Y,bog_needle.png,bg_phibiola.png,,,Bog Needle,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+pricklepap,Pricklepap,Phibiola,Captain,5,,"This Captain deals damage equal to their Threat while Exposed.
+
+{b: Enter:} Return any number of Pricklepole cards from your discard pile to your hand.",,,,Y,pricklepap.png,bg_phibiola.png,,,,,Pricklepap,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+slimy_treehopper,Slimy Treehopper,Phibiola,Captain,5,,"If this Captain survives a Fight, shuffle it into an open Path.
+
+{b: Local:} Move any number of $secret from a friendly creature to other creatures.",,,,Y,slimy_treehopper.png,bg_phibiola.png,,,,,Slimy Treehopper,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+bad_cartographer,Bad Cartographer,Phibiola,Creature,2,,{b: Fight/Gather:} Look at one of your Paths and shuffle it.,,,,Y,bad_cartographer.png,bg_phibiola.png,,Bad Cartographer,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+detriguana,Detriguana,Phibiola,Creature,2,,"After a creature fights Detriguana, deal 1 damage to the attacking creature's neighbors.
+
+{b: Enter/Fight/Gather:} Swap two of your open Paths.",,,,Y,detriguana.png,bg_phibiola.png,,Detriguana,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+fog_of_decay,Fog of Decay,Phibiola,Creature,1,,"Your opponent cannot draw from closed Paths while they have any Open.
+
+In a fight, this creature is dealt 0 damage.",,,,Y,fog_of_decay.png,bg_phibiola.png,,Fog of Decay,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+pricklepod,Pricklepod,Phibiola,Creature,1,,"This creature deals 1 damage while Exposed.
+
+{b: Destroyed:} Search one of your Paths for a Pricklepole and put it into play Alert. Shuffle that Path.",,,,Y,pricklepod.png,bg_phibiola.png,,Pricklepod,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+pricklepole,Pricklepole,Phibiola,Creature,3,,This creature deals damage equal to their Threat while Exposed.,,,,Y,pricklepole.png,bg_phibiola.png,,Pricklepole,,,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+frog_legs,Frog Legs,Phibiola,Scheme,,,{b: Local:} Return a friendly creature to your hand.,,,,Y,frog_legs.png,bg_phibiola.png,,,,Frog Legs,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+medicinal_spores,Medicinal Spores,Phibiola,Scheme,,,{b: Action:} Remove 1 damage from any number of creatures.,PRE PATH SCHEME NEEDS UPDATING,,,Y,medicinal_spores.png,bg_phibiola.png,,,,Medicinal Spores,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+mucus_emitter,Mucus Emitter,Phibiola,Scheme,,,"During a Raid on this Path, shuffle the first Captain that would be Captured into another open Path. Then, destroy this card.",,,,Y,mucus_emitter.png,bg_phibiola.png,,,,Mucus Emitter,,,$phibiola_color,$bg[$phibiola_color],$bg[$phibiola_color]
+mass_leech,Mass Leech,Rotkin,Action,,,{b: Enter:} Return all Secrets on damaged creatures to the common supply.,,,,Y,mass_leech.png,bg_rotkin.png,Mass Leech,,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+off_the_mend,Off the Mend,Rotkin,Action,,,{b: Enter:} Deal 2 damage to each damaged creature.,,,,Y,off_the_mend.png,bg_rotkin.png,Off the Mend,,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+plague_trail,Plague Trail,Rotkin,Action,,,{b: Enter:} Choose 2 directions. Destroy each creature with a chosen direction.,,,3/19/26,Y,plague_trail.png,bg_rotkin.png,Plague Trail,,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+showing_symptoms,Showing Symptoms,Rotkin,Action,,,{b: Enter:} Fatigue up to 3 creatures.,,,,Y,showing_symptoms.png,bg_rotkin.png,Showing Symptoms,,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+sweet_dreams,Sweet Dreams,Rotkin,Action,,,"{b: Enter:} Destroy all Fatigued creatures. Then, Fatigue all creatures.",,,3/19/2026,Y,sweet_dreams.png,bg_rotkin.png,Sweet Dreams,,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+anticipatory_grief,Anticipatory Grief,Rotkin,Attachment,,,Other creatures sharing a faction with this creature cannot be used.,,,,Y,anticipatory_grief.png,bg_rotkin.png,,,Anticipatory Grief,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+nasty_virus,Nasty Virus,Rotkin,Attachment,,,Damage dealt to this creature is doubled.,,,,Y,nasty_virus.png,bg_rotkin.png,,,Nasty Virus,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+proximoa,Proximoa,Rotkin,Captain,,,{b: Enter:} Expose and Fatigue each enemy creature.,,,,Y,proximoa.png,bg_rotkin.png,,,,,Proximoa,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+vile_rotking,Vile Rotking,Rotkin,Captain,5,,"Each time a creature fights Vile Rotking, destroy it.
+
+{b: Local:} Deal 2 damage to all enemy creatures.",,,,Y,vile_rotking.png,bg_rotkin.png,,,,,Vile Rotking,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+fungal_spreader,Fungal Spreader,Rotkin,Creature,2,,{b: Destroyed:} Deal 1 damage to each of your opponent's creatures. Gain 1 $secret for each creature destroyed this way.,,,,Y,fungal_spreader.png,bg_rotkin.png,,Fungal Spreader,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+hidden_fungus,Hidden Fungus,Rotkin,Creature,4,,"After a creature Gathers, Fatigue it.",,,,Y,hidden_fungus.png,bg_rotkin.png,,Hidden Fungus,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+infector,Infector,Rotkin,Creature,4,,{b: After Fight:} Deal 1 damage to all damaged creatures.,,,,Y,infector.png,bg_rotkin.png,,Infector,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+rotkin_cohort,Rotkin Cohort,Rotkin,Creature,3,,"At the end of your turn, Deal 1 damage to all other creatures.",,,,Y,rotkin_cohort.png,bg_rotkin.png,,Rotkin Cohort,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+waste_leech,Waste Leech,Rotkin,Creature,3,,{b: Enter/Fight:} Return all $secret on a creature to the common supply.,,,,Y,waste_leech.png,bg_rotkin.png,,Waste Leech,,,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+brain_sponge,Brain Sponge,Rotkin,Scheme,3,,Damaged creatures cannot Gather.,,,,Y,brain_sponge.png,bg_rotkin.png,,,,Brain Sponge,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+epidemic,Epidemic,Rotkin,Scheme,,,{b: After Raid:} Destroy each creature.,,,,Y,epidemic.png,bg_rotkin.png,,,,Epidemic,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+haustorium,Haustorium,Rotkin,Scheme,,,"When a creature is destroyed, move all $secret on it to this Scheme.
+
+{b: Action:} Gain 1 $secret for every 2 on this Scheme. Then, destroy this Scheme.",,,,Y,haustorium.png,bg_rotkin.png,,,,Haustorium,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+root_rot,Root Rot,Rotkin,Scheme,,,"At the start of your opponent's turn, that player discards the bottom card of one of their open Paths. If a Captain is captured this way, destroy Root Rot.
+
+{b: After Raid:} Destroy this Scheme.",,,,Y,root_rot.png,bg_rotkin.png,,,,Root Rot,,,$rotkin_color,$bg[$rotkin_color],$bg[$rotkin_color]
+celestial_guidance,Celestial Guidance,Starflight,Action,,,"{b: Enter:} If this card is *Aligned*, gain 1 $secret. Otherwise, set your compass to match this card's Cardinal Bonus.",CD North,,,Y,celestial_guidance.png,bg_starflight.png,Celestial Guidance,,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+direct_flight,Direct Flight,Starflight,Action,,,,,,,Y,direct_flight.png,bg_starflight.png,Direct Flight,,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+lead_the_way,Lead the Way,Starflight,Action,,,{b: Enter:} Alert all of your *Aligned* creatures. You may use them this turn.,,,,Y,lead_the_way.png,bg_starflight.png,Lead the Way,,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+quite_ripe,Quite Ripe,Starflight,Action,,,Search one of your Paths for a card and add it to your hand. Shuffle that Path.,,,,Y,quite_ripe.png,bg_starflight.png,Quite Ripe,,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+terrain_scouting,Terrain Scouting,Starflight,Action,,,{b: Enter:} Shuffle a closed Path into an open Path.,,,,Y,terrain_scouting.png,bg_starflight.png,Terrain Scouting,,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+weedin_out,Weedin' Out,Starflight,Action,,,{b: Enter:} Discard any number of non Aligned cards from your hand. Draw a card for each card discarded this way.,,,,Y,weedin_out.png,bg_starflight.png,Weedin' Out,,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+star_gazers,Star Gazers,Starflight,Attachment,,,"At the start of your turn, gain 1 $secret for each friendly creature that matches direction with this creature.",,,,Y,star_gazers.png,bg_starflight.png,,,Star Gazers,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+astraeus,Astraeus,Starflight,Captain,4,,"{b: Enter:} Set your compass to any direction.
+
+Each time you Plot, reduce the cost by 1 for each friendly creature matching the direction you intend to Plot.",,,,Y,astraeus.png,bg_starflight.png,,,,,Astraeus,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+corvus,Corvus,Starflight,Captain,4,,{b: Captured:} The active player reveals their hand.,,,,Y,corvus.png,bg_starflight.png,,,,,Corvus,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+early_bird,Early Bird,Starflight,Creature,2,,"{b: Gather:} If this creature is Aligned, gain 1 $secret.",,,,Y,early_bird.png,bg_starflight.png,,Early Bird,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+first_officer,First Officer,Starflight,Creature,3,,"{b: Enter/Gather:} For the remainder of the turn, you may play and use Aligned cards as if they belonged to the active faction.",,,,Y,first_officer.png,bg_starflight.png,,First Officer,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+homing_pigeon,Homing Pigeon,Starflight,Creature,2,,{b: After Fight:} Put this creature on the top of one of your open Paths.,,,,Y,homing_pigeon.png,bg_starflight.png,,Homing Pigeon,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+parakeep,Parakeep,Starflight,Creature,2,,Secrets on this creature cannot be removed except when it becomes Alert. If this creature would be destroyed first move any secrets on it to its owner's pool.,,,,Y,parakeep.png,bg_starflight.png,,Parakeep,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+treetop_observer,Treetop Observer,Starflight,Creature,3,,Your opponent's Plot cost is +1 for each creature they control that is not Aligned,,,,Y,treetop_observer.png,bg_starflight.png,,Treetop Observer,,,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+birds_eye_view,Bird's Eye View,Starflight,Scheme,,,"Once per turn, when you draw a card from a Path, you may return it to the top of that Path. If you do, draw from a different Path.
+
+{b: After Raid:} Destroy this Scheme.",PRE PATH SCHEME NEEDS UPDATING,,,Y,birds_eye_view.png,bg_starflight.png,,,,Bird's Eye View,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+golden_compass,Golden Compass,Starflight,Scheme,,,"At the end of your turn, if you have more $secret than your opponent, attach Golden Compass to one of their Paths.
+
+{b: Local:} Rotate your compass 90 degrees.",REPRINT FOR UTICA,,,Y,golden_compass.png,bg_starflight.png,,,,Golden Compass,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+"golden_compass_""old""","Golden Compass ""Old""",Starflight,Scheme,,,"{b: Global:} If you have 2 or fewer Secrets, rotate a player's compass 90 degrees.",PRE PATH SCHEME NEEDS UPDATING,,,Y,"golden_compass_""old"".png",bg_starflight.png,,,,"Golden Compass ""Old""",,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+horrorscope,Horrorscope,Starflight,Scheme,,,{b: After Raid:} Destroy each enemy creature that is not Aligned.,,,,Y,horrorscope.png,bg_starflight.png,,,,Horrorscope,,,$starflight_color,$bg[$starflight_color],$bg[$starflight_color]
+easy_pickins,Easy Pickin's,Vora,Action,,,Destroy all Fatigued non-Vora creatures.,,,,Y,easy_pickins.png,bg_vora.png,Easy Pickin's,,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+for_the_pack,For the Pack,Vora,Action,,,"{b: Enter:} Burn 1 non-Vora creature from your hand. If you do, Remove all Fatigue tokens on Vora creatures and heal them 1.",,,,Y,for_the_pack.png,bg_vora.png,For the Pack,,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+good_things_come,Good Things Come,Vora,Action,,,"{b: Enter:} At the end of this turn, before your Draw step, return any number of friendly creatures to your hand.",,,,Y,good_things_come.png,bg_vora.png,Good Things Come,,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+intimidation,Intimidation,Vora,Action,,,{b: Enter:} Expose a creature.,,,,Y,intimidation.png,bg_vora.png,Intimidation,,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+paranoia,Paranoia,Vora,Action,,,{b: Enter:} Destroy a Scheme.,,,3/17/2026,Y,paranoia.png,bg_vora.png,Paranoia,,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+those_who_wait,Those Who Wait,Vora,Action,,,"{b: Enter:} Reveal any number of Vora cards from your hand.
+Plot at +3 cost, reduced by 1 for each card revealed this way. Immediately Raid.",,,,Y,those_who_wait.png,bg_vora.png,Those Who Wait,,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+hunters_pride,Hunter's Pride,Vora,Attachment,,,"This creature gains, ""{b: After Fight:} You may Alert this creature. If you do, Fatigue it.""",,,3/13/2026,Y,hunters_pride.png,bg_vora.png,,,Hunter's Pride,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+alpha_snowball,Alpha Snowball,Vora,Captain,5,,{b: Before Fight:} Deal 1 damage to the opposing creature for each other friendly Vora creature.,,,,Y,alpha_snowball.png,bg_vora.png,,,,,Alpha Snowball,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+respected_elder,Respected Elder,Vora,Captain,6,,{b: Captured:} Remove all fatigue tokens on enemy creatures. Alert all Vora creatures.,,,3/11/2026,Y,respected_elder.png,bg_vora.png,,,,,Respected Elder,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+lurkk,Lurkk,Vora,Creature,3,,{b: Enter:} Choose a direction. Fatigue all creatures of the chosen direction.,,,,Y,lurkk.png,bg_vora.png,,Lurkk,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+pack_provider,Pack Provider,Vora,Creature,4,,"{b: After Fight:} If the defending creature is destroyed, Remove 1 damage from all friendly Vora creatures.",,,,Y,pack_provider.png,bg_vora.png,,Pack Provider,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+revv,Revv,Vora,Creature,2,,"Huddled. Double any damage dealt to this creature while on a flank.
+
+{b: Enter:} Alert this creature.",,,,Y,revv.png,bg_vora.png,,Revv,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+sprinter,Sprinter,Vora,Creature,3,,"{b: After Fight:} You may Alert this Creature. If you do, Fatigue it.",,,,Y,sprinter.png,bg_vora.png,,Sprinter,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+starving_runt,Starving Runt,Vora,Creature,2,,"This creature cannot Gather.
+
+{b: After Fight:} If the defender is not destroyed, Fatigue this creature.",,,3/10/2026,Y,starving_runt.png,bg_vora.png,,Starving Runt,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+swivol,Swivol,Vora,Creature,3,,"This creature deals +1 damage when fighting a creature that shares its direction.
+
+{b: Enter:} Expose each enemy creature that matches this creature's direction.",,,3/18/2026,Y,swivol.png,bg_vora.png,,Swivol,,,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+makeshift_barrier,Makeshift Barrier,Vora,Scheme,,,"{b: Before Raid:} Your opponent must lose 2 $secret to continue the Raid. If they cannot, they gain 5 $secret.",,,,Y,makeshift_barrier.png,bg_vora.png,,,,Makeshift Barrier,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+predators_instinct,Predator's Instinct,Vora,Scheme,,,"{b: Action:} For the rest of this turn, each time an enemy creature is destroyed in a fight, set your compass to that creature's direction.",PRE PATH SCHEME NEEDS UPDATING,,,Y,predators_instinct.png,bg_vora.png,,,,Predator's Instinct,,,$vora_color,$bg[$vora_color],$bg[$vora_color]
+trackers_scent,Tracker's Scent,Vora,Scheme,,,"If you Capture no Captains in a Raid, Gain 2 $secret.
+
+{b: After Raid:} Destroy this Scheme.",PRE PATH SCHEME NEEDS UPDATING,,,Y,trackers_scent.png,bg_vora.png,,,,Tracker's Scent,,,$vora_color,$bg[$vora_color],$bg[$vora_color]

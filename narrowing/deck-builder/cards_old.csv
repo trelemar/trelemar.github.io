@@ -1,0 +1,11 @@
+id,name,faction,type,text,image
+truth-hurts,Truth Hurts,Blistered,Scheme,"Each time a friendly creature Gathers, place 1 Secret on that creature for each damage on that creature.",https://placehold.co/250x350/2b241f/f3eadf?text=Truth+Hurts
+scalded-witness,The Scalded Witness,Blistered,Captain,"Your damaged creatures gain +1 Power.",https://placehold.co/250x350/2b241f/f3eadf?text=Scalded+Witness
+burned-prophet,Burned Prophet,Blistered,Creature,"After this creature Gathers, deal 1 damage to it.",https://placehold.co/250x350/2b241f/f3eadf?text=Burned+Prophet
+ritual-scars,Ritual Scars,Blistered,Action,"Deal 2 damage to a friendly creature. Gain 2 Secrets.",https://placehold.co/250x350/2b241f/f3eadf?text=Ritual+Scars
+veil-stalker,Veil Stalker,Hollow,Creature,"This creature cannot be targeted during a Raid.",https://placehold.co/250x350/2b241f/f3eadf?text=Veil+Stalker
+the-faded-king,The Faded King,Hollow,Captain,"Once per turn, you may move a card between Paths.",https://placehold.co/250x350/2b241f/f3eadf?text=Faded+King
+fogbound-route,Fogbound Route,Hollow,Scheme,"Raids against this Path cost 1 additional Secret.",https://placehold.co/250x350/2b241f/f3eadf?text=Fogbound+Route
+marsh-collector,Marsh Collector,Hollow,Creature,"When this creature Enters, Gather.",https://placehold.co/250x350/2b241f/f3eadf?text=Marsh+Collector
+iron-hound,Iron Hound,Wardens,Creature,"This creature gains +1 Power while Alert.",https://placehold.co/250x350/2b241f/f3eadf?text=Iron+Hound
+warden-prime,Warden Prime,Wardens,Captain,"Friendly creatures enter Alert.",https://placehold.co/250x350/2b241f/f3eadf?text=Warden+Prime
