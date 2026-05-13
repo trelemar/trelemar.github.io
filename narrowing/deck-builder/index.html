@@ -291,9 +291,16 @@
 
     .deck-card {
       margin-bottom: 0.5rem;
-      padding: 0.5rem;
+      padding: 0.45rem 0.5rem;
       font-size: 0.9rem;
       min-height: 34px;
+    }
+
+    .deck-card-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.35rem;
     }
 
     .deck-card-main {
@@ -301,10 +308,11 @@
       align-items: center;
       gap: 0.4rem;
       min-width: 0;
+      flex: 1;
     }
 
     .deck-card img {
-      width: 32px;
+      width: 28px;
       vertical-align: middle;
       border-radius: 4px;
       flex-shrink: 0;
@@ -332,16 +340,16 @@
     }
 
     .direction-toggle-buttons {
-      margin-top: 0.4rem;
-      display: flex;
-      gap: 0.25rem;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.2rem;
+      flex-shrink: 0;
     }
 
     .direction-toggle-buttons button {
-      font-size: 0.75rem;
-      padding: 0.2rem 0.4rem;
-      min-width: 2rem;
+      font-size: 0.7rem;
+      padding: 0.18rem 0.35rem;
+      min-width: 1.65rem;
     }
 
     .card-tooltip {
@@ -419,6 +427,10 @@
 
       .col-add {
         width: 132px;
+      }
+
+      .deck-card-content {
+        align-items: flex-start;
       }
     }
   </style>
@@ -1158,18 +1170,20 @@
       }).join("");
 
       div.innerHTML = `
-        <div class="deck-card-main">
-          <img src="${escapeAttribute(group.card.image)}" alt="${escapeAttribute(group.card.name)}">
-          <div class="deck-card-title">
-            <strong>${sortedCopies.length}x ${escapeHTML(group.card.name)}</strong>
-            <span class="deck-card-meta">
-              ${escapeHTML(group.card.type)} (${escapeHTML(directionList)})
-            </span>
+        <div class="deck-card-content">
+          <div class="deck-card-main">
+            <img src="${escapeAttribute(group.card.image)}" alt="${escapeAttribute(group.card.name)}">
+            <div class="deck-card-title">
+              <strong>${sortedCopies.length}x ${escapeHTML(group.card.name)}</strong>
+              <span class="deck-card-meta">
+                ${escapeHTML(group.card.type)} (${escapeHTML(directionList)})
+              </span>
+            </div>
           </div>
-        </div>
 
-        <div class="direction-toggle-buttons">
-          ${toggleButtons}
+          <div class="direction-toggle-buttons">
+            ${toggleButtons}
+          </div>
         </div>
       `;
 
