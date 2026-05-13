@@ -141,7 +141,9 @@
       background: #644328;
     }
 
-    button.direction-toggle.active {
+    button.direction-toggle.active,
+    button.card-pool-toggle.active,
+    button.captain-toggle.active {
       background: #644328;
       border-color: #d0a47d;
       color: #fff4e8;
@@ -252,6 +254,17 @@
 
     .type-breakdown {
       margin-top: 0.35rem;
+    }
+
+    .faction-sort-control {
+      margin: 0.75rem 0;
+      font-size: 0.85rem;
+    }
+
+    .faction-sort-control select {
+      margin-left: 0.25rem;
+      padding: 0.25rem;
+      font-size: 0.8rem;
     }
 
     .deck-type-section {
@@ -404,6 +417,15 @@
             <option value="All">All</option>
           </select>
         </div>
+
+        <div>
+          <label for="deckPresenceFilter">View:</label>
+          <select id="deckPresenceFilter" onchange="renderCardPool()">
+            <option value="All">All Cards</option>
+            <option value="InDeck">Cards in Deck</option>
+            <option value="NotInDeck">Cards not in Deck</option>
+          </select>
+        </div>
       </div>
 
       <table>
@@ -470,6 +492,8 @@
       "Scheme",
       "Action"
     ];
+
+    const factionSortModes = {};
 
     async function loadCards() {
       try {
@@ -621,6 +645,7 @@
       const cardPool = document.getElementById("cardPool");
       const selectedFaction = document.getElementById("factionFilter").value;
       const selectedType = document.getElementById("typeFilter").value;
+      const deckPresenceFilter = document.getElementById("deckPresenceFilter").value;
 
       cardPool.innerHTML = "";
 
@@ -632,6 +657,14 @@
 
       if (selectedType !== "All") {
         filteredCards = filteredCards.filter(card => card.type === selectedType);
+      }
+
+      if (deckPresenceFilter === "InDeck") {
+        filteredCards = filteredCards.filter(card => isCardInDeck(card.id));
+      }
+
+      if (deckPresenceFilter === "NotInDeck") {
+        filteredCards = filteredCards.filter(card => !isCardInDeck(card.id));
       }
 
       filteredCards = [...filteredCards].sort((a, b) => {
@@ -675,11 +708,41 @@
         let buttons = "";
 
         if (card.type === "Captain") {
-          buttons = `<button onclick="addCard('${escapeAttribute(card.id)}', 'Captain')">Add</button>`;
+          const isActive = deck.some(deckCard =>
+            deckCard.id === card.id &&
+            deckCard.direction === "Captain"
+          );
+
+          const activeClass = isActive ? "active" : "";
+
+          buttons = `
+            <button
+              class="captain-toggle ${activeClass}"
+              onclick="toggleCaptain('${escapeAttribute(card.id)}')"
+              title="${isActive ? "Remove Captain" : "Add Captain"}"
+            >
+              ${isActive ? "Added" : "Add"}
+            </button>
+          `;
         } else {
-          buttons = directions.map(direction =>
-            `<button onclick="addCard('${escapeAttribute(card.id)}', '${direction}')">${direction[0]}</button>`
-          ).join("");
+          buttons = directions.map(direction => {
+            const isActive = deck.some(deckCard =>
+              deckCard.id === card.id &&
+              deckCard.direction === direction
+            );
+
+            const activeClass = isActive ? "active" : "";
+
+            return `
+              <button
+                class="card-pool-toggle ${activeClass}"
+                onclick="toggleCardDirection('${escapeAttribute(card.id)}', '${direction}')"
+                title="${isActive ? "Remove" : "Add"} ${direction}"
+              >
+                ${direction[0]}
+              </button>
+            `;
+          }).join("");
         }
 
         row.innerHTML = `
@@ -762,6 +825,24 @@
 
       clearDeckMessage();
       renderDeck();
+      renderCardPool();
+    }
+
+    function toggleCaptain(cardId) {
+      const existingIndex = deck.findIndex(card =>
+        card.id === cardId &&
+        card.direction === "Captain"
+      );
+
+      if (existingIndex >= 0) {
+        deck.splice(existingIndex, 1);
+        clearDeckMessage();
+        renderDeck();
+        renderCardPool();
+        return;
+      }
+
+      addCard(cardId, "Captain");
     }
 
     function toggleCardDirection(cardId, direction) {
@@ -774,6 +855,7 @@
         deck.splice(existingIndex, 1);
         clearDeckMessage();
         renderDeck();
+        renderCardPool();
         return;
       }
 
@@ -784,6 +866,7 @@
       deck.splice(index, 1);
       clearDeckMessage();
       renderDeck();
+      renderCardPool();
     }
 
     function renderDeck() {
@@ -811,6 +894,10 @@
 
           deckList.appendChild(column);
           continue;
+        }
+
+        if (!factionSortModes[faction]) {
+          factionSortModes[faction] = "type";
         }
 
         const factionCards = deck
@@ -887,6 +974,16 @@
               ${escapeHTML(typeBreakdown || "No cards yet")}
             </div>
           </div>
+
+          <div class="faction-sort-control">
+            <label>
+              Group:
+              <select onchange="setFactionSortMode('${escapeAttribute(faction)}', this.value)">
+                <option value="type" ${factionSortModes[faction] === "type" ? "selected" : ""}>By Type</option>
+                <option value="direction" ${factionSortModes[faction] === "direction" ? "selected" : ""}>By Direction</option>
+              </select>
+            </label>
+          </div>
         `;
 
         if (captain) {
@@ -895,107 +992,159 @@
         }
 
         const nonCaptainCards = factionCards.filter(item => item.card.type !== "Captain");
-        const groupedCards = {};
+        const groupedCards = groupDeckCardsById(nonCaptainCards);
 
-        nonCaptainCards.forEach(item => {
-          const id = item.card.id;
-
-          if (!groupedCards[id]) {
-            groupedCards[id] = {
-              card: item.card,
-              copies: []
-            };
-          }
-
-          groupedCards[id].copies.push(item);
-        });
-
-        const groupedCardsByType = {};
-
-        Object.values(groupedCards).forEach(group => {
-          const type = group.card.type || "Unknown";
-
-          if (!groupedCardsByType[type]) {
-            groupedCardsByType[type] = [];
-          }
-
-          groupedCardsByType[type].push(group);
-        });
-
-        Object.entries(groupedCardsByType)
-          .sort((a, b) => compareTypes(a[0], b[0]))
-          .forEach(([type, groups]) => {
-            const section = document.createElement("div");
-            section.className = "deck-type-section";
-
-            const heading = document.createElement("div");
-            heading.className = "deck-type-heading";
-
-            const totalCopies = groups.reduce((sum, group) => {
-              return sum + group.copies.length;
-            }, 0);
-
-            heading.textContent = `${type} (${totalCopies})`;
-            section.appendChild(heading);
-
-            groups
-              .sort((a, b) => a.card.name.localeCompare(b.card.name))
-              .forEach(group => {
-                const div = document.createElement("div");
-                div.className = "deck-card";
-
-                const sortedCopies = group.copies.sort((a, b) => {
-                  return directions.indexOf(a.card.direction) - directions.indexOf(b.card.direction);
-                });
-
-                const selectedDirections = sortedCopies.map(copy => copy.card.direction);
-
-                const directionList = selectedDirections.length > 0
-                  ? selectedDirections.join(", ")
-                  : "No directions";
-
-                const toggleButtons = directions.map(direction => {
-                  const isActive = selectedDirections.includes(direction);
-                  const activeClass = isActive ? "active" : "";
-
-                  return `
-                    <button
-                      class="direction-toggle ${activeClass}"
-                      onclick="toggleCardDirection('${escapeAttribute(group.card.id)}', '${direction}')"
-                      title="${isActive ? "Remove" : "Add"} ${direction}"
-                    >
-                      ${direction[0]}
-                    </button>
-                  `;
-                }).join("");
-
-                div.innerHTML = `
-                  <div class="deck-card-main">
-                    <img src="${escapeAttribute(group.card.image)}" alt="${escapeAttribute(group.card.name)}">
-                    <div class="deck-card-title">
-                      <strong>${sortedCopies.length}x ${escapeHTML(group.card.name)}</strong>
-                      <span class="deck-card-meta">
-                        ${escapeHTML(group.card.type)} (${escapeHTML(directionList)})
-                      </span>
-                    </div>
-                  </div>
-
-                  <div class="direction-toggle-buttons">
-                    ${toggleButtons}
-                  </div>
-                `;
-
-                addTooltipEvents(div, group.card);
-                section.appendChild(div);
-              });
-
-            column.appendChild(section);
-          });
+        if (factionSortModes[faction] === "direction") {
+          renderDeckGroupsByDirection(column, groupedCards);
+        } else {
+          renderDeckGroupsByType(column, groupedCards);
+        }
 
         deckList.appendChild(column);
       }
 
       validateDeck();
+    }
+
+    function setFactionSortMode(faction, mode) {
+      factionSortModes[faction] = mode;
+      renderDeck();
+    }
+
+    function groupDeckCardsById(cardItems) {
+      const groupedCards = {};
+
+      cardItems.forEach(item => {
+        const id = item.card.id;
+
+        if (!groupedCards[id]) {
+          groupedCards[id] = {
+            card: item.card,
+            copies: []
+          };
+        }
+
+        groupedCards[id].copies.push(item);
+      });
+
+      return Object.values(groupedCards);
+    }
+
+    function renderDeckGroupsByType(column, groupedCards) {
+      const groupedCardsByType = {};
+
+      groupedCards.forEach(group => {
+        const type = group.card.type || "Unknown";
+
+        if (!groupedCardsByType[type]) {
+          groupedCardsByType[type] = [];
+        }
+
+        groupedCardsByType[type].push(group);
+      });
+
+      Object.entries(groupedCardsByType)
+        .sort((a, b) => compareTypes(a[0], b[0]))
+        .forEach(([type, groups]) => {
+          const totalCopies = groups.reduce((sum, group) => {
+            return sum + group.copies.length;
+          }, 0);
+
+          const section = createDeckSection(`${type} (${totalCopies})`);
+
+          groups
+            .sort((a, b) => a.card.name.localeCompare(b.card.name))
+            .forEach(group => {
+              section.appendChild(createDeckCardElement(group));
+            });
+
+          column.appendChild(section);
+        });
+    }
+
+    function renderDeckGroupsByDirection(column, groupedCards) {
+      directions.forEach(direction => {
+        const groupsForDirection = groupedCards.filter(group =>
+          group.copies.some(copy => copy.card.direction === direction)
+        );
+
+        if (groupsForDirection.length === 0) {
+          return;
+        }
+
+        const section = createDeckSection(`${direction} (${groupsForDirection.length})`);
+
+        groupsForDirection
+          .sort((a, b) => a.card.name.localeCompare(b.card.name))
+          .forEach(group => {
+            section.appendChild(createDeckCardElement(group));
+          });
+
+        column.appendChild(section);
+      });
+    }
+
+    function createDeckSection(title) {
+      const section = document.createElement("div");
+      section.className = "deck-type-section";
+
+      const heading = document.createElement("div");
+      heading.className = "deck-type-heading";
+      heading.textContent = title;
+
+      section.appendChild(heading);
+
+      return section;
+    }
+
+    function createDeckCardElement(group) {
+      const div = document.createElement("div");
+      div.className = "deck-card";
+
+      const sortedCopies = group.copies.sort((a, b) => {
+        return directions.indexOf(a.card.direction) - directions.indexOf(b.card.direction);
+      });
+
+      const selectedDirections = sortedCopies.map(copy => copy.card.direction);
+
+      const directionList = selectedDirections.length > 0
+        ? selectedDirections.join(", ")
+        : "No directions";
+
+      const toggleButtons = directions.map(direction => {
+        const isActive = selectedDirections.includes(direction);
+        const activeClass = isActive ? "active" : "";
+
+        return `
+          <button
+            class="direction-toggle ${activeClass}"
+            onclick="toggleCardDirection('${escapeAttribute(group.card.id)}', '${direction}')"
+            title="${isActive ? "Remove" : "Add"} ${direction}"
+          >
+            ${direction[0]}
+          </button>
+        `;
+      }).join("");
+
+      div.innerHTML = `
+        <div class="deck-card-main">
+          <img src="${escapeAttribute(group.card.image)}" alt="${escapeAttribute(group.card.name)}">
+          <div class="deck-card-title">
+            <strong>${sortedCopies.length}x ${escapeHTML(group.card.name)}</strong>
+            <span class="deck-card-meta">
+              ${escapeHTML(group.card.type)} (${escapeHTML(directionList)})
+            </span>
+          </div>
+        </div>
+
+        <div class="direction-toggle-buttons">
+          ${toggleButtons}
+        </div>
+      `;
+
+      addTooltipEvents(div, group.card);
+
+      return div;
     }
 
     function validateDeck() {
@@ -1075,6 +1224,10 @@
       return String(a).localeCompare(String(b));
     }
 
+    function isCardInDeck(cardId) {
+      return deck.some(card => card.id === cardId);
+    }
+
     function updateDeckTitleFromInput() {
       deckTitle = document.getElementById("deckTitle").value.trim();
     }
@@ -1103,6 +1256,7 @@
       deck = [];
       clearDeckMessage();
       renderDeck();
+      renderCardPool();
     }
 
     function getDeckState() {
