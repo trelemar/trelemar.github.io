@@ -366,6 +366,14 @@
       font-size: 0.9rem;
     }
 
+    .card-text-quote {
+      border-left: 3px solid #8a6a52;
+      padding-left: 0.75rem;
+      margin-top: 0.6rem;
+      color: #f3eadf;
+      white-space: pre-line;
+    }
+
     .inline-icon {
       height: 1em;
       width: 1em;
@@ -1386,7 +1394,7 @@
         <h3>${escapeHTML(card.name)}</h3>
         <p><strong>${escapeHTML(card.faction)}</strong> — ${escapeHTML(card.type)}</p>
         <p><strong>Threat:</strong> ${escapeHTML(card.threat || "—")}</p>
-        <p>${formatCardText(card.text)}</p>
+        <p class="card-text-quote">${formatCardText(card.text)}</p>
       `;
 
       tooltip.style.display = "block";
