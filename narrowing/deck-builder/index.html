@@ -5,6 +5,14 @@
   <title>The Narrowing Deck Builder</title>
 
   <style>
+    @font-face {
+      font-family: "PermanentMarker";
+      src: url("fonts/PermanentMarker-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
     body {
       font-family: system-ui, sans-serif;
       margin: 0;
@@ -358,7 +366,12 @@
     }
 
     .card-tooltip h3 {
+      font-family: "PermanentMarker", system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.02em;
       margin-bottom: 0.25rem;
+      font-size: 1.35rem;
+      line-height: 1.1;
     }
 
     .card-tooltip p {
@@ -372,6 +385,8 @@
       margin-top: 0.6rem;
       color: #f3eadf;
       white-space: pre-line;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
 
     .inline-icon {
@@ -412,7 +427,6 @@
 <body>
   <header>
     <h1>The Narrowing Deck Builder</h1>
-    <p class="muted">Build a 3-faction deck and validate it.</p>
   </header>
 
   <main>
@@ -478,6 +492,8 @@
         </div>
 
         <button onclick="copyShareURL()">Copy Share URL</button>
+        <button onclick="downloadDeckTXT()">Download TXT</button>
+        <button onclick="downloadDeckCSV()">Download CSV</button>
         <button onclick="clearDeck()">Clear Deck</button>
       </div>
 
@@ -1379,6 +1395,148 @@
       return new TextDecoder().decode(bytes);
     }
 
+    function getDeckTitleForExport() {
+      updateDeckTitleFromInput();
+      return deckTitle || "Untitled Deck";
+    }
+
+    function getSafeFilename(value) {
+      return String(value || "deck")
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") || "deck";
+    }
+
+    function getGroupedDeckForExport() {
+      const factions = [...new Set(deck.map(card => card.faction))];
+
+      return factions.map(faction => {
+        const factionCards = deck.filter(card => card.faction === faction);
+        const captain = factionCards.find(card => card.type === "Captain");
+        const nonCaptainCards = factionCards.filter(card => card.type !== "Captain");
+
+        const grouped = {};
+
+        nonCaptainCards.forEach(card => {
+          if (!grouped[card.id]) {
+            grouped[card.id] = {
+              card,
+              directions: []
+            };
+          }
+
+          grouped[card.id].directions.push(card.direction);
+        });
+
+        const cards = Object.values(grouped)
+          .map(group => ({
+            ...group,
+            directions: group.directions.sort((a, b) =>
+              directions.indexOf(a) - directions.indexOf(b)
+            )
+          }))
+          .sort((a, b) => a.card.name.localeCompare(b.card.name));
+
+        return {
+          faction,
+          captain,
+          cards
+        };
+      });
+    }
+
+    function downloadDeckTXT() {
+      const title = getDeckTitleForExport();
+      const groupedDeck = getGroupedDeckForExport();
+
+      let text = `${title}\n`;
+      text += `The Narrowing Deck List\n`;
+      text += `Total Cards: ${deck.length}\n\n`;
+
+      groupedDeck.forEach(section => {
+        text += `${section.faction}\n`;
+        text += `${"-".repeat(section.faction.length)}\n`;
+
+        if (section.captain) {
+          text += `1x ${section.captain.name} - Captain\n`;
+        } else {
+          text += `No Captain selected\n`;
+        }
+
+        section.cards.forEach(group => {
+          text += `${group.directions.length}x ${group.card.name} - ${group.card.type} (${group.directions.join(", ")})\n`;
+        });
+
+        text += `\n`;
+      });
+
+      downloadFile(`${getSafeFilename(title)}.txt`, text, "text/plain");
+    }
+
+    function downloadDeckCSV() {
+      const title = getDeckTitleForExport();
+
+      const rows = [
+        ["Deck Title", "Faction", "Quantity", "Card Title", "Card Type", "Directions"]
+      ];
+
+      getGroupedDeckForExport().forEach(section => {
+        if (section.captain) {
+          rows.push([
+            title,
+            section.faction,
+            "1",
+            section.captain.name,
+            "Captain",
+            "Captain"
+          ]);
+        }
+
+        section.cards.forEach(group => {
+          rows.push([
+            title,
+            section.faction,
+            String(group.directions.length),
+            group.card.name,
+            group.card.type,
+            group.directions.join(", ")
+          ]);
+        });
+      });
+
+      const csv = rows
+        .map(row => row.map(escapeCSVCell).join(","))
+        .join("\n");
+
+      downloadFile(`${getSafeFilename(title)}.csv`, csv, "text/csv");
+    }
+
+    function escapeCSVCell(value) {
+      const text = String(value ?? "");
+
+      if (text.includes(",") || text.includes('"') || text.includes("\n")) {
+        return `"${text.replaceAll('"', '""')}"`;
+      }
+
+      return text;
+    }
+
+    function downloadFile(filename, content, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(url);
+    }
+
     function addTooltipEvents(element, card) {
       element.addEventListener("mouseenter", event => showTooltip(card, event));
       element.addEventListener("mousemove", event => moveTooltip(event));
@@ -1394,7 +1552,7 @@
         <h3>${escapeHTML(card.name)}</h3>
         <p><strong>${escapeHTML(card.faction)}</strong> — ${escapeHTML(card.type)}</p>
         <p><strong>Threat:</strong> ${escapeHTML(card.threat || "—")}</p>
-        <p class="card-text-quote">${formatCardText(card.text)}</p>
+        <div class="card-text-quote">${formatCardText(card.text)}</div>
       `;
 
       tooltip.style.display = "block";
