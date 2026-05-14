@@ -4,17 +4,6 @@
   <meta charset="UTF-8" />
   <title>The Narrowing Deck Builder</title>
 
-  <meta name="description" content="Build and share decks for The Narrowing, a head-to-head card game of combat and deduction.">
-
-  <meta property="og:title" content="The Narrowing Deck Builder">
-  <meta property="og:description" content="Build and share decks for The Narrowing.">
-  <meta property="og:url" content="https://lowsimmer.games/narrowing/deck-builder/">
-  <meta property="og:type" content="website">
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Narrowing Deck Builder">
-  <meta name="twitter:description" content="Build and share decks for The Narrowing.">
-
   <style>
     @font-face {
       font-family: "PermanentMarker";
@@ -516,6 +505,7 @@
 
         <button onclick="copyShareURL()">Copy Share URL</button>
         <button onclick="downloadDeckTXT()">Download TXT</button>
+        <button onclick="downloadDeckCSV()">Download CSV</button>
         <button onclick="clearDeck()">Clear Deck</button>
       </div>
 
@@ -1503,6 +1493,49 @@
       });
 
       downloadFile(`${getSafeFilename(title)}.txt`, text, "text/plain");
+    }
+
+    function downloadDeckCSV() {
+      const title = getDeckTitleForExport();
+
+      const rows = [
+        ["ID", "TITLE", "DIRECTION"]
+      ];
+
+      deck.forEach(card => {
+        rows.push([
+          card.id,
+          card.name,
+          card.type === "Captain" ? "*" : getDirectionInitial(card.direction)
+        ]);
+      });
+
+      const csv = rows
+        .map(row => row.map(escapeCSVCell).join(","))
+        .join("\n");
+
+      downloadFile(`${getSafeFilename(title)}.csv`, csv, "text/csv");
+    }
+
+    function getDirectionInitial(direction) {
+      const directionMap = {
+        North: "N",
+        East: "E",
+        South: "S",
+        West: "W"
+      };
+
+      return directionMap[direction] || direction;
+    }
+
+    function escapeCSVCell(value) {
+      const text = String(value ?? "");
+
+      if (text.includes(",") || text.includes('"') || text.includes("\n")) {
+        return `"${text.replaceAll('"', '""')}"`;
+      }
+
+      return text;
     }
 
     function downloadFile(filename, content, mimeType) {
